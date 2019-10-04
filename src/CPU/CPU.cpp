@@ -108,9 +108,9 @@ void CPU::Prepare(char * gameName)
 
 	Interrupts::NMIThisFrame = false;
 
-  // Reset button states
-  Input::Joy[0].latch = 0;
-  Input::Joy[1].latch = 0;
+    // Reset button states
+    Input::Joy[0].latch = 0;
+    Input::Joy[1].latch = 0;
 
 	FILE * myfile = NULL;
 
@@ -280,7 +280,7 @@ void CPU::Prepare(char * gameName)
 	}
 }
 
-// Coloca o processador a trabalhar
+// Works the CPU
 void CPU::Work()
 {
 	PPU::Create();

@@ -425,6 +425,12 @@ void FPSThread()
 {
 	FPSThreadEvent = CreateEvent(NULL, TRUE, FALSE, "FPSCounter");
 
+    if (!FPSThreadEvent)
+    {
+        printf("Error creating the FPS thread. FPS will not be displayed.");
+        return;
+    }
+
 	static char WinTitle[256];
 	static double LastTime = Common::GetUTime();
 	while(runFPSThread)
@@ -442,7 +448,6 @@ void FPSThread()
 	CloseHandle(FPSThreadEvent);
 }
 
-// Main function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// Criar classe da janela
@@ -497,9 +502,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	// Destroy FPS thread
-	runFPSThread = false;
-	SetEvent(FPSThreadEvent);
-	WaitForSingleObject(FPSThreadID, INFINITE);
+    if (FPSThreadID)
+    {
+        runFPSThread = false;
+        SetEvent(FPSThreadEvent);
+        WaitForSingleObject(FPSThreadID, INFINITE);
+    }
 
 	// Destruir a emulação
 	CPU::Destroy();
