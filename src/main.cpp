@@ -2,6 +2,7 @@
 // A zona principal do código
 
 //#include <vld.h>
+#include "Console.h"
 #include "CPU/CPU.h"
 #include "PPU/PPU.h"
 #include "PPU/FrameBuffer.h"
@@ -28,12 +29,13 @@ bool runFPSThread = true;
 bool limitFPS = true;
 HANDLE FPSThreadEvent;
 char Filestring[MAX_PATH];
+Console* console;
 
 // Abrir um rom para emular
 bool OpenNewFile()
 {
 	OPENFILENAME opf;
-  ZeroMemory(&opf, sizeof(opf));
+    ZeroMemory(&opf, sizeof(opf));
 
 	opf.hwndOwner = Window;
 	opf.lpstrFilter = "iNES File (*.nes)\0*.nes\0";
@@ -60,10 +62,10 @@ bool OpenNewFile()
 		return false;
 	}
 
-	CPU::Prepare(opf.lpstrFile);
+	console->InsertCartridge(opf.lpstrFile);
 
 	if(!showDebug)
-		CPU::AllowPrintf(false);
+		console->DisplayDebugInfo(false);
 
 	return true;
 }
@@ -181,9 +183,9 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 						return 0;
 
 					Renderer->setActive(false);
-					CPU::Start();
+					console->PowerOn();
 
-					if(CPU::GetState())
+					if(console->HasProblem())
 					{
 						MessageBox(Handle, "Error opening file!", "Unhelpful Error Message", MB_OK | MB_ICONEXCLAMATION);
 						Renderer->setActive();
@@ -205,7 +207,7 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 				// Continuar a emulação
 				case 201:
 				{
-					if(CPU::Start())
+					if(console->Resume())
 					{
 						Renderer->setActive(false);
 						iAmPaused = false;
@@ -216,7 +218,7 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 				// Pausar a emulação
 				case 202:
 				{
-					if(CPU::Stop())
+					if(console->Suspend())
 					{
 						Renderer->setActive();
 						iAmPaused = true;
@@ -224,14 +226,13 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 					return 0;
 				}
 
-				// Fazer reset
+                // Hard reset
 				case 230:
 				{
 					printf(Filestring);
-					// Hard Reset
-					CPU::Prepare(Filestring);
+                    console->PowerOff();
 					Renderer->setActive(false);
-					CPU::Start();
+					console->PowerOn();
 
 					return 0;
 				}
@@ -239,24 +240,24 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 				case 231:
 				{
 					// Soft Reset
-					CPU::Reset();
+					console->Reset();
 					return 0;
 				}
 
-				// Limitar os FPS
+				// Limit FPS
 				case 204:
 				{
 					if(limitFPS)
 					{
 						CheckMenuItem(hMenu, 204, MF_BYCOMMAND | MF_UNCHECKED);
 						limitFPS = false;
-						PPU::LimitFPS(0);
+						console->LimitFPS(0);
 					}
 					else
 					{
 						CheckMenuItem(hMenu, 204, MF_BYCOMMAND | MF_CHECKED);
 						limitFPS = true;
-						PPU::LimitFPS(60);
+						console->LimitFPS(60);
 					}
 
 					break;
@@ -269,7 +270,7 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 					if(hasConsole)
 					{
 						CheckMenuItem(hMenu, 301, MF_BYCOMMAND | MF_UNCHECKED);
-						CPU::AllowPrintf(false);
+						console->DisplayDebugInfo(false);
 						Sleep(1);
 
                         freopen("NUL:", "w", stdout);
@@ -295,7 +296,7 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 						CheckMenuItem(hMenu, 301, MF_BYCOMMAND | MF_CHECKED);
 						SetForegroundWindow(Handle);
 						if(showDebug)
-							CPU::AllowPrintf();
+							console->DisplayDebugInfo();
 						hasConsole = true;
 					}
 					break;
@@ -307,14 +308,14 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
 					if(showDebug)
 					{
 						CheckMenuItem(hMenu, 302, MF_BYCOMMAND | MF_UNCHECKED);
-						CPU::AllowPrintf(false);
+						console->DisplayDebugInfo(false);
 						showDebug = false;
 					}
 					else
 					{
 						CheckMenuItem(hMenu, 302, MF_BYCOMMAND | MF_CHECKED);
 						if(hasConsole)
-							CPU::AllowPrintf();
+							console->DisplayDebugInfo();
 						showDebug = true;
 					}
 				}
@@ -509,10 +510,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         WaitForSingleObject(FPSThreadID, INFINITE);
     }
 
-	// Destruir a emulação
-	CPU::Destroy();
+	// Shut down the emulated console
+	console->PowerOff();
 
-	// Destruir a consola
+	// Destroy console window
     if (hasConsole)
     {
         freopen("NUL:", "w", stdout);

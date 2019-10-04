@@ -26,6 +26,7 @@
     <ClCompile Include="src\Common\CRC32.cpp" />
     <ClCompile Include="src\Common\Serializer.cpp" />
     <ClCompile Include="src\Common\SaveState.cpp" />
+    <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\CPU\CPU.cpp" />
     <ClCompile Include="src\CPU\Disassembler.cpp" />
     <ClCompile Include="src\CPU\Input.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="src\APU\Output.h" />
     <ClInclude Include="src\Common\SaveState.h" />
     <ClInclude Include="src\Common\Common.h" />
+    <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\CPU\CPU.h" />
     <ClInclude Include="src\CPU\Disassembler.h" />
     <ClInclude Include="src\CPU\Input.h" />
