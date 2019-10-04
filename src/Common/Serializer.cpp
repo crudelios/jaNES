@@ -13,7 +13,7 @@ void Common::Serializer::Copy(const void * data, unsigned int size)
 {
 	size *= sizeof(uint8_t);
 
-	int64_t filled = 0;
+	size_t filled = 0;
 
 	// Set up a new buffer if this one is full
 	while(((Cursor - Current) + size) > BufSize)
