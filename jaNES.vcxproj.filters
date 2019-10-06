@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="CPU">
+      <UniqueIdentifier>{6805aa86-b150-4900-a09b-be86f898a1f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PPU">
+      <UniqueIdentifier>{2871a8a3-f3d8-43ad-8035-d6274265b6c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="APU">
+      <UniqueIdentifier>{3f0a8f26-26f3-4049-bb39-5b591775f0cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPU\Headers">
+      <UniqueIdentifier>{51705d84-678c-4345-80e5-9086d7455128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PPU\Headers">
+      <UniqueIdentifier>{39966328-b6e2-4a7e-ad30-52db3d4093e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mappers">
+      <UniqueIdentifier>{a5c0d92c-81d4-4536-b77c-f2fc29520880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mappers\Headers">
+      <UniqueIdentifier>{9f23f381-4f86-4395-b305-88a6f34083cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="APU\Headers">
+      <UniqueIdentifier>{22ab449f-6f4b-4568-a05e-51280b721638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{adfe0559-98bf-4925-9d84-491ba66ca617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Headers">
+      <UniqueIdentifier>{e5134229-37bc-4ef1-bb1c-7567d728bfd4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CPU\CPU.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PPU\PPU.cpp">
+      <Filter>PPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\CPU\Disassembler.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPU\Memory.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPU\Interrupts.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPU\Instructions.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PPU\Registers.cpp">
+      <Filter>PPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPU\Opcodes.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PPU\FrameBuffer.cpp">
+      <Filter>PPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPU\Input.cpp">
+      <Filter>CPU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mappers\Mappers.cpp">
+      <Filter>Mappers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\APU\APU.cpp">
+      <Filter>APU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\APU\FrameSequencer.cpp">
+      <Filter>APU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\APU\Output.cpp">
+      <Filter>APU</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\SaveState.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\CRC32.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Serializer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Common.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\CPU\CPU.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Disassembler.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Instructions.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Interrupts.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Memory.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Registers.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU\Registers.h">
+      <Filter>PPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU\PPU.h">
+      <Filter>PPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Internal.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU\Internal.h">
+      <Filter>PPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU\FrameBuffer.h">
+      <Filter>PPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPU\Input.h">
+      <Filter>CPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mappers\Mappers.h">
+      <Filter>Mappers\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\res\resources.h" />
+    <ClInclude Include="src\APU\APU.h">
+      <Filter>APU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\APU\Internal.h">
+      <Filter>APU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\APU\FrameSequencer.h">
+      <Filter>APU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\APU\Output.h">
+      <Filter>APU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\SaveState.h">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU\FrameBufferString.h">
+      <Filter>PPU\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Common.h">
+      <Filter>Common\Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\res\resources.rc" />
+  </ItemGroup>
+</Project>
