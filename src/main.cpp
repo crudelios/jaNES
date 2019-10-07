@@ -325,7 +325,7 @@ LRESULT CALLBACK jaNESMainEventHandler(HWND Handle, UINT Message, WPARAM WParam,
   return DefWindowProc(Handle, Message, WParam, LParam);
 }
 
-void ConstructMenu(HWND hWnd)
+void ConstructMenu()
 {
 	hMenu	= CreateMenu();
 	HMENU hsmFile, hsmEmulation, hsmView, hsmReset;
@@ -416,8 +416,6 @@ void ConstructMenu(HWND hWnd)
 	mii.wID		= 300;
 	mii.hSubMenu	= hsmView;
 	InsertMenuItem(hMenu, 2, TRUE, (LPCMENUITEMINFO) &mii);
-
-	SetMenu(hWnd, hMenu);
 }
 
 // Indica o fps
@@ -464,7 +462,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	WindowClass.lpszClassName = "jaNES Main";
 	RegisterClass(&WindowClass);
 
-    DWORD window_style = WS_SYSMENU | WS_VISIBLE | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME;
+    DWORD window_style = WS_SYSMENU | WS_CAPTION | WS_VISIBLE | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_THICKFRAME;
     unsigned int dpi = GetDpiForSystem();
     float scale = (float) dpi / USER_DEFAULT_SCREEN_DPI;
 
@@ -477,17 +475,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     if (!AdjustWindowRectExForDpi(&rect, window_style, true, 0, dpi))
         return 0;
 
-	Window = CreateWindow("jaNES Main", "jaNES v0.30", window_style, 200, 200, rect.right - rect.left, rect.bottom - rect.top, NULL, NULL, hInstance, NULL);
-    RenderWindow = CreateWindow("STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS, 0, 0, (int)(512 * scale), (int)(480 * scale), Window, NULL, hInstance, NULL);
+    ConstructMenu();
 
+	Window = CreateWindowEx(0, "jaNES Main", "jaNES v0.30", window_style, 200, 200, rect.right - rect.left, rect.bottom - rect.top, NULL, hMenu, hInstance, NULL);
+    RenderWindow = CreateWindow("STATIC", NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS, 0, 0, (int)(512 * scale), (int)(480 * scale), Window, NULL, hInstance, NULL);
     sf::Window myRender(RenderWindow);
 
 	Renderer = &myRender;
 	PPU::RegisterWindow(Renderer);
 	PPU::LimitFPS(60);
     PPU::FrameBuffer::SetScale(scale);
-
-	ConstructMenu(Window);
 
 	// Start FPS thread
 	HANDLE FPSThreadID = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE) &FPSThread, NULL, 0, 0);
