@@ -22,6 +22,7 @@
     <ClCompile Include="src\APU\APU.cpp" />
     <ClCompile Include="src\APU\FrameSequencer.cpp" />
     <ClCompile Include="src\APU\Output.cpp" />
+    <ClCompile Include="src\Cartridge.cpp" />
     <ClCompile Include="src\Common\Common.cpp" />
     <ClCompile Include="src\Common\CRC32.cpp" />
     <ClCompile Include="src\Common\Serializer.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="src\APU\FrameSequencer.h" />
     <ClInclude Include="src\APU\Internal.h" />
     <ClInclude Include="src\APU\Output.h" />
+    <ClInclude Include="src\Cartridge.h" />
     <ClInclude Include="src\Common\SaveState.h" />
     <ClInclude Include="src\Common\Common.h" />
     <ClInclude Include="src\Console.h" />

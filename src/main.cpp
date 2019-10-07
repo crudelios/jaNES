@@ -2,6 +2,7 @@
 // A zona principal do código
 
 //#include <vld.h>
+#include "Cartridge.h"
 #include "Console.h"
 #include "CPU/CPU.h"
 #include "PPU/PPU.h"
@@ -62,7 +63,8 @@ bool OpenNewFile()
 		return false;
 	}
 
-	console->InsertCartridge(opf.lpstrFile);
+    Cartridge * cartridge = Cartridge::List::Pick(opf.lpstrFile);
+	console->InsertCartridge(cartridge);
 
 	if(!showDebug)
 		console->DisplayDebugInfo(false);

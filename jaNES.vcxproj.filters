@@ -89,6 +89,7 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="src\Console.cpp" />
+    <ClCompile Include="src\Cartridge.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CPU\CPU.h">
@@ -153,6 +154,7 @@
       <Filter>Common\Headers</Filter>
     </ClInclude>
     <ClInclude Include="src\Console.h" />
+    <ClInclude Include="src\Cartridge.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\res\resources.rc" />

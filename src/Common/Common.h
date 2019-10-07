@@ -15,6 +15,10 @@ namespace Common
 	// Calculates the CRC32 of a string
 	unsigned int CRC32(const unsigned char * data, unsigned int size, unsigned int CRC = 0);
 
+    // Gets a file name from a full path
+    // Memory deletion is done by the user
+    const char* GetFileNameFromFullPath(const char* fullPath);
+
 	// Serialization manager
 	class Serializer
 	{
